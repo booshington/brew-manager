@@ -3,7 +3,7 @@ from tkinter import Tk, Frame, filedialog, Label, Button, Listbox
 import json
 import logging
 
-from Recipe import Recipe
+from src.Recipe import Recipe
 
 logging.basicConfig(level=logging.DEBUG, format='%(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("main")
