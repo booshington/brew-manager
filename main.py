@@ -1,57 +1,45 @@
 import tkinter.ttk as ttk
-from tkinter import Tk, Frame, filedialog, Label, Button
-from math import sqrt
+from tkinter import Tk, Frame, filedialog, Label, Button, Listbox
 import json
 
+from Recipe import Recipe
 
 def load_recipe_json():
-    filename = filedialog.askopenfilename(initialdir = "/",
+    filename = filedialog.askopenfilename(initialdir = "~",
         title = "Select a File",
         filetypes = (("JSON files", "*.json*"), ("all files", "*.*")))
-    
     with open(filename) as j_file:
         data = json.load(j_file)
-
-    # Change label contents
-    label_file_explorer.configure(text="File Opened: "+filename)
-    recipe_label.configure(text=data)
+    
+    #Add recipe to list
+    recipe = Recipe.load_from_json(data)
+    recipe_list.insert("end", recipe)
+    recipe_list.pack()
 
 # Create the main window
 window_root = Tk()
 window_root.geometry("500x700") #TODO: move to config
 window_root.title("Brew Manager v0.1")
-
 # Create a notebook (tab control)
 notebook = ttk.Notebook(window_root)
-
 # First tab: Recipe Manager
 tab_recipe_manager = Frame(notebook)
 # Second tab: Recipe Builder
 tab_recipe_builder = Frame(notebook)
-
 #Add tabs to Notebook
 notebook.add(tab_recipe_manager, text='Recipe Manager')
 notebook.add(tab_recipe_builder, text='Recipe Builder')
 
-# with open("recipe.json") as j_file:
-#     data = json.load(j_file)
-
-# Add widgets to the first tab
-recipe_label = Label(tab_recipe_manager, text="")
+#Tab Title
+recipe_label = Label(tab_recipe_manager, text="Current Recipes:")
 recipe_label.pack()
 
-label_file_explorer = Label(tab_recipe_manager, 
-    text = "File Explorer using Tkinter",
-    # width = 100, height = 4, 
-    fg = "blue")
+#Recipe List
+recipe_list = Listbox(tab_recipe_manager)
 
-button_explore = Button(tab_recipe_manager, 
-    text = "Load Recipe",
-    command = load_recipe_json) 
-button_exit = Button(tab_recipe_manager, 
-    text = "Exit",
-    command = exit) 
-label_file_explorer.pack()
+#TODO: Use a Frame object to reorient Button objects
+button_explore = Button(tab_recipe_manager, text = "Load Recipe", command = load_recipe_json) 
+button_exit = Button(tab_recipe_manager, text = "Exit", command = exit)
 button_explore.pack()
 button_exit.pack()
 
