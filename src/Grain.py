@@ -21,3 +21,10 @@ class Grain:
 
     def __repr__(self):
         return self.name
+
+    def __dict__(self):
+        return {
+            "name":self.name,
+            "weight":self.weight,
+            "srm":self.srm
+        }

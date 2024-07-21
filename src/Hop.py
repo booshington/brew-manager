@@ -1,4 +1,8 @@
 import json
+import logging
+
+logger = logging.getLogger("main")
+
 
 
 class Hop:
@@ -11,7 +15,7 @@ class Hop:
         self.name = name
         self.weight = weight
         self.aa = aa
-        self.time: time
+        self.time = time
 
     @classmethod
     def load_from_json(cls, json_input: json):
@@ -24,3 +28,11 @@ class Hop:
 
     def __repr__(self):
         return self.name
+    
+    def __dict__(self):
+        return {
+            "name":self.name,
+            "weight":self.weight,
+            "aa":self.aa,
+            "time":self.time
+        }

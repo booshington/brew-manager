@@ -29,5 +29,22 @@ class Recipe:
             hops=json_input["hops"]
         )
 
+    @classmethod
+    def dump_to_json(self):
+        pass
+
     def __repr__(self):
         return self.name
+
+    def __dict__(self):
+        hops = []
+        for hop in self.hops:
+            hops.append(hop.__dict__())
+        grains = []
+        for grain in self.grains:
+            grains.append(grain.__dict__())
+        return {
+            "name": self.name,
+            "grains": grains,
+            "hops": hops
+        }

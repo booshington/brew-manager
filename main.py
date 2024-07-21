@@ -37,12 +37,9 @@ def main():
         logger.info("Recipe activated, loading...")
         recipe_index = recipe_list.curselection()
         selected_recipe: Recipe = recipe_list.get(recipe_index)
-        logger.info("Selected Recipe: %s" % selected_recipe)
+        logger.info("Selected Recipe: %s" % dict(selected_recipe))
         logger.info(recipe_db)
         export_recipe(selected_recipe)
-
-    def export_recipe(recipe: Recipe):
-        logger.info("Exporting recipe %s" % recipe)
 
 
     recipe_list.bind('<Double-1>', recipe_activate) 
