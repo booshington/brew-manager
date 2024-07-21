@@ -4,7 +4,7 @@ import json
 import logging
 
 from src.Recipe import Recipe
-from src.util import load_recipe_json, recipe_db
+from src.util import open_recipe_json, recipe_db, export_recipe
 
 logging.basicConfig(level=logging.DEBUG, format='%(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("main")
@@ -35,9 +35,10 @@ def main():
 
     def recipe_activate(event):
         logger.info("Recipe activated, loading...")
-        recipe_index = recipe_list.curselection()
-        selected_recipe: Recipe = recipe_list.get(recipe_index)
-        logger.info("Selected Recipe: %s" % dict(selected_recipe))
+        recipe_index,  = recipe_list.curselection()
+        # I hope this doesn't break
+        selected_recipe = recipe_db[recipe_index]
+        logger.info("Selected Recipe: %s" % selected_recipe)
         logger.info(recipe_db)
         export_recipe(selected_recipe)
 
@@ -45,7 +46,7 @@ def main():
     recipe_list.bind('<Double-1>', recipe_activate) 
 
     #TODO: Use a Frame object to reorient Button objects
-    button_explore = Button(tab_recipe_manager, text = "Load Recipes", command=lambda: load_recipe_json(recipe_list)) 
+    button_explore = Button(tab_recipe_manager, text = "Load Recipes", command=lambda: open_recipe_json(recipe_list)) 
     button_exit = Button(tab_recipe_manager, text = "Exit", command = exit)
     button_explore.pack()
     button_exit.pack()  

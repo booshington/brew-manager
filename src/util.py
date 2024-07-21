@@ -11,19 +11,27 @@ logger = logging.getLogger("main")
 
 recipe_db = []
 
-def load_recipe_json(recipe_list: Listbox):
+def open_recipe_json(recipe_list: Listbox):
+    '''
+        Queries the user for a json file and loads the recipes into application
+    '''
     filename = filedialog.askopenfilename(initialdir = "~/workspace/brew-manager/test_recipes",
         title = "Select a File",
         filetypes = (("JSON files", "*.json*"), ("all files", "*.*")))
     with open(filename) as j_file:
-        data: List[Listbox] = json.load(j_file)
+        logging.warning("jfile type: %s" % type(j_file))
+        data: List[dict] = json.load(j_file)
 
     for recipe in data:
-        recipe = Recipe.load_from_json(recipe)
-        recipe_db.append(recipe)
-        recipe_list.insert("end", recipe)
+        load_recipe(recipe_list, recipe)
 
     recipe_list.pack()
+
+def load_recipe(recipe_list: Listbox, recipe: dict):
+    logging.warning("recipe type: %s" % type(recipe))
+    recipe = Recipe.load_from_json(recipe)
+    recipe_db.append(recipe)
+    recipe_list.insert("end", recipe)
 
 def export_recipe(recipe: Recipe):
     logger.warning("Exporting recipe")
