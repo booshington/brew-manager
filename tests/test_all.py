@@ -1,8 +1,9 @@
 import unittest
 import logging
 from tkinter import Tk, Frame, filedialog, Label, Button, Listbox
+import os
 
-from src.util import export_recipe, load_recipe
+from src.util import export_recipe, load_recipe, open_recipe_json
 from src.Recipe import Recipe
 
 logging.basicConfig(level=logging.DEBUG, format='%(name)s - %(levelname)s - %(message)s')
@@ -32,13 +33,18 @@ test_recipe_json = {
     ]
 }
 
-test_recipe = Recipe(**test_recipe_json)
 test_listbox = Listbox()
+test_json_file = os.getcwd() + "/tests/test_recipes.json"
+test_recipe = Recipe(**test_recipe_json)
+
 
 class TestRecipes(unittest.TestCase):
 
     def test_nothing(self):
         assert True
+
+    def test_recipe_import(self):
+        open_recipe_json(test_listbox, j_filename=test_json_file)
 
     def test_recipe_export(self):
         export_recipe(test_recipe)
