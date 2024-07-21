@@ -1,39 +1,29 @@
 import tkinter.ttk as ttk
-from tkinter import Tk, Frame, filedialog, Label, Button, Listbox
+from tkinter import Tk, Frame, Label, Button, Listbox
 import json
 import logging
 
 from src.Recipe import Recipe
+from src.util import load_recipe_json, recipe_db
 
 logging.basicConfig(level=logging.DEBUG, format='%(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("main")
 
 def main():
-    #TODO: refactor
-    def load_recipe_json():
-        filename = filedialog.askopenfilename(initialdir = "~/workspace/brew-manager/test_recipes",
-            title = "Select a File",
-            filetypes = (("JSON files", "*.json*"), ("all files", "*.*")))
-        with open(filename) as j_file:
-            data = json.load(j_file)
-        
-        #Add recipe to list
-        recipe = Recipe.load_from_json(data)
-        recipe_list.insert("end", recipe)
-        recipe_list.pack()
-
     # Create the main window
     window_root = Tk()
     window_root.geometry("500x700") #TODO: move to config
     window_root.title("Brew Manager v0.1")
+
     # Create a notebook (tab control)
     notebook = ttk.Notebook(window_root)
-    # First tab: Recipe Manager
     tab_recipe_manager = Frame(notebook)
-    # Second tab: Recipe Builder
     tab_recipe_builder = Frame(notebook)
+    tab_recipe_viewer = Frame(notebook)
+
     #Add tabs to Notebook
     notebook.add(tab_recipe_manager, text='Recipe Manager')
+    notebook.add(tab_recipe_viewer, text='Recipe Viewer')
     notebook.add(tab_recipe_builder, text='Recipe Builder')
 
     #Tab Title
@@ -43,14 +33,21 @@ def main():
     #Recipe List
     recipe_list = Listbox(tab_recipe_manager)
 
-    #TODO: refactor
-    def go(event):
-        logger.info(recipe_list.get(recipe_list.curselection()))
+    def recipe_activate(event):
+        logger.info("Recipe activated, loading...")
+        recipe_index = recipe_list.curselection()
+        logger.info(recipe_list.get(recipe_index))
+        logger.info(recipe_db)
 
-    recipe_list.bind('<Double-1>', go) 
+    # def show_recipe(recipe_list: Listbox):
+    #     recipe_index = recipe_list.curselection()
+    #     logger.info(recipe_list.get(recipe_index))
+    #     logger.info(recipe_db[recipe_index])
+
+    recipe_list.bind('<Double-1>', recipe_activate) 
 
     #TODO: Use a Frame object to reorient Button objects
-    button_explore = Button(tab_recipe_manager, text = "Load Recipe", command = load_recipe_json) 
+    button_explore = Button(tab_recipe_manager, text = "Load Recipe", command=lambda: load_recipe_json(recipe_list)) 
     button_exit = Button(tab_recipe_manager, text = "Exit", command = exit)
     button_explore.pack()
     button_exit.pack()  
