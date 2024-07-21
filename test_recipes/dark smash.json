@@ -1,18 +1,20 @@
-{
-    "name":"Dark Smash",
-    "grains":[
-        {
-            "name":"Roasted Barley",
-            "weight":5.0,
-            "srm":"100.0"
-        }
-    ],
-    "hops":[
-        {
-            "name":"Cascade",
-            "aa":"",
-            "weight":2.0,
-            "time":60
-        }
-    ]
-}
+[
+    {
+        "name":"Dark Smash",
+        "grains":[
+            {
+                "name":"Roasted Barley",
+                "weight":5.0,
+                "srm":"100.0"
+            }
+        ],
+        "hops":[
+            {
+                "name":"Cascade",
+                "aa":"",
+                "weight":2.0,
+                "time":60
+            }
+        ]
+    }
+]

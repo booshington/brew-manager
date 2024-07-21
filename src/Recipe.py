@@ -1,8 +1,12 @@
 import json
+import logging
 from typing import List
 
 from src.Grain import Grain
 from src.Hop import Hop
+
+logger = logging.getLogger("main")
+
 
 class Recipe:
     name: str
@@ -18,6 +22,7 @@ class Recipe:
 
     @classmethod
     def load_from_json(cls, json_input: json):
+        logger.debug("Building Recipe object for: %s" % json_input)
         return Recipe(
             name=json_input["name"],
             grains=json_input["grains"],

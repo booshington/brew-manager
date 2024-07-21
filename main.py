@@ -43,12 +43,12 @@ def main():
 
     def export_recipe(recipe: Recipe):
         logger.info("Exporting recipe %s" % recipe)
-        
+
 
     recipe_list.bind('<Double-1>', recipe_activate) 
 
     #TODO: Use a Frame object to reorient Button objects
-    button_explore = Button(tab_recipe_manager, text = "Load Recipe", command=lambda: load_recipe_json(recipe_list)) 
+    button_explore = Button(tab_recipe_manager, text = "Load Recipes", command=lambda: load_recipe_json(recipe_list)) 
     button_exit = Button(tab_recipe_manager, text = "Exit", command = exit)
     button_explore.pack()
     button_exit.pack()  
