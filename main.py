@@ -1,63 +1,67 @@
 import tkinter.ttk as ttk
 from tkinter import Tk, Frame, filedialog, Label, Button, Listbox
 import json
+import logging
 
 from Recipe import Recipe
 
-def load_recipe_json():
-    filename = filedialog.askopenfilename(initialdir = "~",
-        title = "Select a File",
-        filetypes = (("JSON files", "*.json*"), ("all files", "*.*")))
-    with open(filename) as j_file:
-        data = json.load(j_file)
-    
-    #Add recipe to list
-    recipe = Recipe.load_from_json(data)
-    recipe_list.insert("end", recipe)
-    recipe_list.pack()
+logging.basicConfig(level=logging.DEBUG, format='%(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger("main")
 
-# Create the main window
-window_root = Tk()
-window_root.geometry("500x700") #TODO: move to config
-window_root.title("Brew Manager v0.1")
-# Create a notebook (tab control)
-notebook = ttk.Notebook(window_root)
-# First tab: Recipe Manager
-tab_recipe_manager = Frame(notebook)
-# Second tab: Recipe Builder
-tab_recipe_builder = Frame(notebook)
-#Add tabs to Notebook
-notebook.add(tab_recipe_manager, text='Recipe Manager')
-notebook.add(tab_recipe_builder, text='Recipe Builder')
+def main():
+    #TODO: refactor
+    def load_recipe_json():
+        filename = filedialog.askopenfilename(initialdir = "~/workspace/brew-manager/test_recipes",
+            title = "Select a File",
+            filetypes = (("JSON files", "*.json*"), ("all files", "*.*")))
+        with open(filename) as j_file:
+            data = json.load(j_file)
+        
+        #Add recipe to list
+        recipe = Recipe.load_from_json(data)
+        recipe_list.insert("end", recipe)
+        recipe_list.pack()
 
-#Tab Title
-recipe_label = Label(tab_recipe_manager, text="Current Recipes:")
-recipe_label.pack()
+    # Create the main window
+    window_root = Tk()
+    window_root.geometry("500x700") #TODO: move to config
+    window_root.title("Brew Manager v0.1")
+    # Create a notebook (tab control)
+    notebook = ttk.Notebook(window_root)
+    # First tab: Recipe Manager
+    tab_recipe_manager = Frame(notebook)
+    # Second tab: Recipe Builder
+    tab_recipe_builder = Frame(notebook)
+    #Add tabs to Notebook
+    notebook.add(tab_recipe_manager, text='Recipe Manager')
+    notebook.add(tab_recipe_builder, text='Recipe Builder')
 
-#Recipe List
-recipe_list = Listbox(tab_recipe_manager)
+    #Tab Title
+    recipe_label = Label(tab_recipe_manager, text="Current Recipes:")
+    recipe_label.pack()
 
-#TODO: Use a Frame object to reorient Button objects
-button_explore = Button(tab_recipe_manager, text = "Load Recipe", command = load_recipe_json) 
-button_exit = Button(tab_recipe_manager, text = "Exit", command = exit)
-button_explore.pack()
-button_exit.pack()
+    #Recipe List
+    recipe_list = Listbox(tab_recipe_manager)
 
-# entry = tk.Entry(tab_recipe_manager)
-# entry.pack(pady=5)
+    #TODO: refactor
+    def go(event):
+        logger.info(recipe_list.get(recipe_list.curselection()))
 
-# submit_button = tk.Button(tab_recipe_manager, text="Calculate", command=calculate_sqrt)
-# submit_button.pack(pady=5)
+    recipe_list.bind('<Double-1>', go) 
 
-# output_label = tk.Label(tab_recipe_manager, text="")
-# output_label.pack(pady=10)
+    #TODO: Use a Frame object to reorient Button objects
+    button_explore = Button(tab_recipe_manager, text = "Load Recipe", command = load_recipe_json) 
+    button_exit = Button(tab_recipe_manager, text = "Exit", command = exit)
+    button_explore.pack()
+    button_exit.pack()  
 
-# Create a File Explorer label
+    # Add the notebook to the window_root window
+    notebook.pack(expand=True, fill='both')
 
-  
+    logger.info("Running mainloop...")
 
-# Add the notebook to the window_root window
-notebook.pack(expand=True, fill='both')
+    # Run the application
+    window_root.mainloop()
 
-# Run the application
-window_root.mainloop()
+if __name__ == "__main__":
+    main()
