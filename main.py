@@ -36,13 +36,14 @@ def main():
     def recipe_activate(event):
         logger.info("Recipe activated, loading...")
         recipe_index = recipe_list.curselection()
-        logger.info(recipe_list.get(recipe_index))
+        selected_recipe: Recipe = recipe_list.get(recipe_index)
+        logger.info("Selected Recipe: %s" % selected_recipe)
         logger.info(recipe_db)
+        export_recipe(selected_recipe)
 
-    # def show_recipe(recipe_list: Listbox):
-    #     recipe_index = recipe_list.curselection()
-    #     logger.info(recipe_list.get(recipe_index))
-    #     logger.info(recipe_db[recipe_index])
+    def export_recipe(recipe: Recipe):
+        logger.info("Exporting recipe %s" % recipe)
+        
 
     recipe_list.bind('<Double-1>', recipe_activate) 
 
