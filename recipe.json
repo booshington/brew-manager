@@ -1,0 +1,15 @@
+{
+    "grains":{
+        "2-row":{
+            "weight":10.0,
+            "SRM":"1.0"
+        }
+    },
+    "hops":{
+        "Saaz":{
+            "aa":"",
+            "weight":1.0,
+            "time":60
+        }
+    }
+}
