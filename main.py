@@ -19,11 +19,9 @@ def main():
     notebook = ttk.Notebook(window_root)
     tab_recipe_manager = Frame(notebook)
     tab_recipe_builder = Frame(notebook)
-    # tab_recipe_viewer = Frame(notebook)
 
     #Add tabs to Notebook
     notebook.add(tab_recipe_manager, text='Recipe Manager')
-    # notebook.add(tab_recipe_viewer, text='Recipe Viewer')
     notebook.add(tab_recipe_builder, text='Recipe Builder')
 
     #Recipe List

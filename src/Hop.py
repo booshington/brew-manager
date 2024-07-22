@@ -4,7 +4,6 @@ import logging
 logger = logging.getLogger("main")
 
 
-
 class Hop:
     name: str
     weight: float
@@ -23,19 +22,19 @@ class Hop:
             name=json_input["name"],
             weight=json_input["weight"],
             aa=json_input["aa"],
-            time=json_input["time"]
+            time=json_input["time"],
         )
 
     def __repr__(self):
         return self.name
-    
+
     def __dict__(self):
         return {
-            "name":self.name,
-            "weight":self.weight,
-            "aa":self.aa,
-            "time":self.time
+            "name": self.name,
+            "weight": self.weight,
+            "aa": self.aa,
+            "time": self.time,
         }
-    
+
     def to_str(self):
         return self.name
