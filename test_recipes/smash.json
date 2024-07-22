@@ -1,0 +1,20 @@
+[
+    {
+        "name":"Smash",
+        "grains":[
+            {
+                "name":"2-row",
+                "weight":10.0,
+                "srm":"1.0"
+            }
+        ],
+        "hops":[
+            {
+                "name":"Saaz",
+                "aa":"",
+                "weight":1.0,
+                "time":60
+            }
+        ]
+    }
+]
