@@ -26,7 +26,7 @@ class Recipe:
         return Recipe(
             name=json_input["name"],
             grains=json_input["grains"],
-            hops=json_input["hops"]
+            hops=json_input["hops"],
         )
 
     @classmethod
@@ -43,8 +43,4 @@ class Recipe:
         grains = []
         for grain in self.grains:
             grains.append(grain.__dict__())
-        return {
-            "name": self.name,
-            "grains": grains,
-            "hops": hops
-        }
+        return {"name": self.name, "grains": grains, "hops": hops}
