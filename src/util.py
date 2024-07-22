@@ -1,5 +1,5 @@
 import logging
-from tkinter import Tk, Frame, filedialog, Label, Button, Listbox
+from tkinter import filedialog, Listbox
 import json
 from typing import List
 import time
@@ -7,9 +7,7 @@ import os
 
 from src.Recipe import Recipe
 
-logging.basicConfig(
-    level=logging.DEBUG, format="%(name)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.DEBUG, format="%(name)s - %(levelname)s - %(message)s")
 
 logger = logging.getLogger("main")
 

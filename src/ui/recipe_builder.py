@@ -6,9 +6,7 @@ from src.Grain import Grain
 from src.Hop import Hop
 from src.Recipe import Recipe
 
-logging.basicConfig(
-    level=logging.DEBUG, format="%(name)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.DEBUG, format="%(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("main")
 
 

@@ -4,9 +4,7 @@ import logging
 from src.Recipe import Recipe
 from src.util import open_recipe_json, export_selected_recipe, recipe_db
 
-logging.basicConfig(
-    level=logging.DEBUG, format="%(name)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.DEBUG, format="%(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("main")
 
 
