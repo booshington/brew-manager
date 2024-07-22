@@ -36,3 +36,6 @@ class Hop:
             "aa":self.aa,
             "time":self.time
         }
+    
+    def to_str(self):
+        return self.name

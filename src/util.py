@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(name)s - %(levelname)s - %(me
 
 logger = logging.getLogger("main")
 
-recipe_db = []
+recipe_db: List[Recipe] = []
 
 def open_recipe_json(recipe_list: Listbox, j_filename: list = []):
     '''
@@ -40,3 +40,12 @@ def export_recipe(recipe: Recipe):
     export_filename = "recipe_export_%s.json" % time.time()
     with open(file=export_filename, mode='x') as f:
         json.dump([recipe.__dict__()], f, ensure_ascii=False, indent=4)
+
+def export_selected_recipe(recipe_list: Listbox):
+    logger.info("Recipe activated, loading...")
+    recipe_index,  = recipe_list.curselection()
+    # I hope this doesn't break
+    selected_recipe = recipe_db[recipe_index]
+    logger.info("Selected Recipe: %s" % selected_recipe)
+    logger.info(recipe_db)
+    export_recipe(selected_recipe)

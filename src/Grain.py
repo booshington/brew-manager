@@ -28,3 +28,6 @@ class Grain:
             "weight":self.weight,
             "srm":self.srm
         }
+
+    def to_str(self):
+        return self.name
